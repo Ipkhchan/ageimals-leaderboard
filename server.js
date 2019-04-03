@@ -1,14 +1,20 @@
-const schema = require('./graphqlSchema');
-
 const Koa = require("koa");
-const mount = require('koa-mount');
-const graphqlHTTP = require('koa-graphql');
+const graphqlHTTP = require("koa-graphql");
+const mount = require("koa-mount");
+const schema = require("./graphql/schema.js");
+const root = require("./graphql/root.js");
+
 const app = new Koa();
 
-app.use(mount('/graphql', graphqlHTTP({
-  schema: schema,
-  graphiql: true
-})));
+app.use(
+  mount(
+    "/graphql",
+    graphqlHTTP({
+      schema: schema,
+      rootValue: root,
+      graphiql: true
+    })
+  )
+);
 
 app.listen(3000);
-console.log('Running a GraphQL API server at localhost:3000/graphql');
