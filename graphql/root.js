@@ -1,7 +1,3 @@
-const Error = require('./error.js')
-const UserError = Error.UserError
-const UserErrors = Error.UserErrors
-
 const root = { 
   mostWins: ({numUsers}) => getTopOfLeaderboard(numUsers),
   mostLosses: ({numUsers}) => getBottomOfLeaderboard(numUsers),
@@ -27,9 +23,7 @@ function getTopLoseStreaks(numUsers) {
 }
 
 function postWinners(userHandles) {
-  var firstError = new UserError("test");
-  var secondError = new UserError("test");
-  return new UserErrors(firstError, secondError);
+  return true
 }
 
 module.exports = root;

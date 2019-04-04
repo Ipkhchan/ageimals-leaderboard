@@ -1,14 +1,6 @@
 const { buildSchema } = require("graphql");
 
 const schema = buildSchema(`
-  type UserError {
-    message: String
-  }
-
-  type UserErrors {
-    userErrors: [UserError]
-  }
-
   type Query {
     mostWins(numUsers: Int): [String],
     mostLosses(numUsers: Int): [String],
@@ -17,7 +9,7 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    winners(users: [String]!): UserErrors
+    winners(users: [String]!): Boolean
   }
 `);
 
