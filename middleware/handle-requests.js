@@ -1,13 +1,5 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("../serviceAccountCredentials.json");
+const db = require("../firebase.js");
 const cTable = require("console.table");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://ageimals-leaderboard.firebaseio.com"
-});
-
-const db = admin.firestore();
 
 async function handleRequests(ctx) {
   const {
@@ -19,12 +11,14 @@ async function handleRequests(ctx) {
     text
   } = ctx.request.body;
 
-  function orderObject(keyOrder, object) {
+  function orderObject(orderedKeys, object) {
     const orderedObject = {};
 
-    keyOrder.forEach(key => {
-      if (object[key] || object[key] === 0) {
-        orderedObject[key] = object[key];
+    orderedKeys.forEach(key => {
+      const [originalKey, renamedKey] = key;
+
+      if (object[originalKey] || object[originalKey] === 0) {
+        orderedObject[renamedKey] = object[originalKey];
       }
     });
 
@@ -32,11 +26,11 @@ async function handleRequests(ctx) {
   }
 
   const orderedColumns = [
-    "displayName",
-    "wins",
-    "losses",
-    "winStreak",
-    "lossStreak"
+    ["displayName", "Display Name"],
+    ["wins", "Wins"],
+    ["losses", "Losses"],
+    ["winStreak", "Win Streak"],
+    ["lossStreak", "Loss Streak"]
   ];
 
   const users = db.collection("users");
