@@ -6,7 +6,7 @@ function postWinners(userHandles) {
   var ref = db.collection("users");
   userHandles.map(async user => {
     const document = ref.doc(user);
-    var data = await document.get();
+    const data = await document.get();
     if (data["_createTime"] === undefined) {
       document
         .set({
@@ -15,10 +15,10 @@ function postWinners(userHandles) {
           winStreak: 1,
           lossStreak: 0
         })
-        .then(function() {
+        .then(() => {
           console.log(user, " successfully written!");
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error("Error writing user: ", error);
         });
     } else {
@@ -28,10 +28,10 @@ function postWinners(userHandles) {
           winStreak: admin.firestore.FieldValue.increment(1),
           lossStreak: 0
         })
-        .then(function() {
+        .then(() => {
           console.log(user, " successfully updated!");
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error("Error writing user: ", error);
         });
     }

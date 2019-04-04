@@ -1,4 +1,5 @@
-const db = require("../firebase.js");
+const firebase = require("../firebase.js");
+const db = firebase.db;
 const cTable = require("console.table");
 
 async function handleRequests(ctx) {
