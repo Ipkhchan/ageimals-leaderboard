@@ -25,7 +25,8 @@ function postWinners(userHandles) {
       document
         .update({
           wins: admin.firestore.FieldValue.increment(1),
-          winStreak: admin.firestore.FieldValue.increment(1)
+          winStreak: admin.firestore.FieldValue.increment(1),
+          lossStreak: 0
         })
         .then(function() {
           console.log(user, " successfully updated!");
