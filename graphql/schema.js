@@ -17,7 +17,7 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    winners(users: [String]!): Boolean
+    winners(userHandles: [String]!): Boolean
   }
 `);
 
