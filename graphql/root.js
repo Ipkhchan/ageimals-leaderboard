@@ -1,3 +1,5 @@
+const getTopOfLeaderboard = require('./getTopOfLeaderboard.js');
+
 const root = { 
   mostWins: ({numUsers}) => getTopOfLeaderboard(numUsers),
   mostLosses: ({numUsers}) => getBottomOfLeaderboard(numUsers),
@@ -5,10 +7,6 @@ const root = {
   highestLoseStreaks: ({numUsers}) => getTopLoseStreaks(numUsers),
   winners: ({userHandles}) => postWinners(userHandles)
 };
-
-function getTopOfLeaderboard(numUsers) {
-  return ["@ivan.chan", "@brian.zhang", "@nashua.luk"];
-}
 
 function getBottomOfLeaderboard(numUsers) {
   return ["@dummy", "@data"];
@@ -23,7 +21,7 @@ function getTopLoseStreaks(numUsers) {
 }
 
 function postWinners(userHandles) {
-  return true
+  return true;
 }
 
 module.exports = root;
