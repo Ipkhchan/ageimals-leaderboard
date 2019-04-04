@@ -25,10 +25,10 @@ describe("getBottomOfLeaderboard", function() {
   it("should return users sorted by most wins", async function() {
     users = await getBottomOfLeaderboard();
     for (let i = 0; i < users.length - 1; i++) {
-      assert.isAtMost(
-        users[i]["wins"],
-        users[i + 1]["wins"],
-        users[i] + " has fewer or equal wins than " + users[i + 1]
+      assert.isAtLeast(
+        users[i]["losses"],
+        users[i + 1]["losses"],
+        users[i] + " has more or equal losses than " + users[i + 1]
       );
     }
   });

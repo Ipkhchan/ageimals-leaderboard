@@ -1,30 +1,32 @@
-const firebase = require("../../../firebase.js");
-const db = firebase.db;
-const admin = firebase.admin;
-const postWinners = require("../graphql/postWinners.js");
+const db = require("../../../firebase.js");
+const postWinners = require("../postWinners.js");
+const getUser = require("../getUser.js");
+const assert = require('chai').assert;
 const should = require("chai").should();
 
 describe("postWinners", function() {
   it("should return true for adding user to db", async function() {
-    response = await postWinners(["nash"]);
-    revertProdData(["nash"]);
+    const response = await postWinners(["nash"]);
     response.should.equal(true);
+    revertProdData(["nash"]);
   });
 });
 
-async function revertProdData(userHandles) {
-  var ref = db.collection("users");
-  const document = ref.doc(userHandles[0]);
-  document
-    .update({
-      wins: admin.firestore.FieldValue.increment(-1),
-      winStreak: admin.firestore.FieldValue.increment(-1),
-      lossStreak: 0
-    })
-    .then(function() {
-      console.log("successfully updated!");
-    })
-    .catch(function(error) {
-      console.error("Error writing user: ", error);
-    });
+function revertProdData(userHandles) {
+  const ref = db.collection("users");
+  userHandles.map(async user => {
+    const document = ref.doc(user);
+    document
+      .update({
+        wins: admin.firestore.FieldValue.increment(-1),
+        winStreak: admin.firestore.FieldValue.increment(-1),
+        lossStreak: 0
+      })
+      .then(() => {
+        console.log("successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error writing user: ", error);
+      });
+  });
 }
