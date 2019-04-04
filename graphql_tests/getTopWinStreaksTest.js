@@ -1,10 +1,10 @@
-const getTopOfLeaderboard = require('../graphql/getTopOfLeaderboard.js');
+const getTopWinStreaks = require('../graphql/getTopWinStreaks.js');
 const assert = require('chai').assert;
 const should = require('chai').should();
 
-describe('getTopOfLeaderboard', function() {
+describe('getTopWinStreaks', function() {
   it('should return a user object with valid attributes', async function() {
-    users = await getTopOfLeaderboard(1);
+    users = await getTopWinStreaks(1);
     users.should.be.a("array");
     users.should.have.length(1);
     user = users[0];
@@ -17,15 +17,15 @@ describe('getTopOfLeaderboard', function() {
   });
 
   it('should return 10 user objects by default', async function() {
-    users = await getTopOfLeaderboard();
+    users = await getTopWinStreaks();
     users.should.be.a("array");
     users.should.have.length(10);
   })
 
-  it('should return users sorted by most wins', async function() {
-    users = await getTopOfLeaderboard();
+  it('should return users sorted by highest winStreaks', async function() {
+    users = await getTopWinStreaks();
     for (let i = 0; i < users.length-1; i++) {
-      assert.isAtLeast(users[i]["wins"], users[i+1]["wins"], users[i] + " has greater or equal wins than " + users[i+1]);
+      assert.isAtLeast(users[i]["winStreak"], users[i+1]["winStreak"], users[i] + " has a greater or equal win streak than " + users[i+1]);
     }
   })
 });

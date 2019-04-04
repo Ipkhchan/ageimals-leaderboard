@@ -1,4 +1,7 @@
 const getTopOfLeaderboard = require('./getTopOfLeaderboard.js');
+const getBottomOfLeaderboard = require('./getBottomOfLeaderboard.js');
+const getTopWinStreaks = require('./getTopWinStreaks.js');
+const getTopLoseStreaks = require('./getTopLoseStreaks.js');
 
 const root = { 
   mostWins: ({numUsers}) => getTopOfLeaderboard(numUsers),
@@ -7,18 +10,6 @@ const root = {
   highestLoseStreaks: ({numUsers}) => getTopLoseStreaks(numUsers),
   winners: ({userHandles}) => postWinners(userHandles)
 };
-
-function getBottomOfLeaderboard(numUsers) {
-  return ["@dummy", "@data"];
-}
-
-function getTopWinStreaks(numUsers) {
-  return ["@rabbit"];
-}
-
-function getTopLoseStreaks(numUsers) {
-  return ["@koala"];
-}
 
 function postWinners(userHandles) {
   return true;
