@@ -1,16 +1,15 @@
 const Koa = require("koa");
-const Router = require("koa-router");
+const bodyParser = require("koa-bodyparser");
 const graphqlHTTP = require("koa-graphql");
 const mount = require("koa-mount");
 
 const schema = require("./graphql/schema.js");
 const root = require("./graphql/root.js");
+const handleRequests = require("./middleware/handle-requests.js");
 
 const app = new Koa();
-const router = new Router();
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(bodyParser());
 
 app.use(
   mount(
@@ -22,5 +21,7 @@ app.use(
     })
   )
 );
+
+app.use(handleRequests);
 
 app.listen(3000);
