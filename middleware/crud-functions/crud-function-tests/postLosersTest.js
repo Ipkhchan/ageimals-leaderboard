@@ -1,5 +1,5 @@
 const db = require('../../../firebase.js');
-const postLosers = require('../graphql/postLosers.js');
+const postLosers = require('../postLosers.js');
 const should = require('chai').should();
 
 describe('postLosers', function() {
@@ -10,7 +10,7 @@ describe('postLosers', function() {
   });
 });
 
-async function revertProdData(userHandles) {
+function revertLossData(userHandles) {
   var ref = db.collection('users');
   const document = ref.doc(userHandles[0]);
   document
