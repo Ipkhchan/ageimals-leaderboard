@@ -1,5 +1,4 @@
 const {db} = require('../../../firebase.js');
-const admin = firebase.admin;
 const postLosers = require('../graphql/postLosers.js');
 const should = require('chai').should();
 

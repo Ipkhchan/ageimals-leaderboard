@@ -1,5 +1,4 @@
 const {db} = require('../../firebase.js');
-const admin = firebase.admin;
 
 function postLosers(userHandles) {
   var ref = db.collection('users');

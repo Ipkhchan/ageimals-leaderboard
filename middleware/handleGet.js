@@ -5,7 +5,7 @@ const {
   getTopOfLeaderboard,
   getTopWinStreaks,
 } = require('./crud-functions/index.js');
-const {orderObjects} = require('../utilities.js');
+const {orderObjects} = require('../utilities/object-formatting.js');
 const orderedColumns = require('../constants');
 
 async function handleGet(ctx) {
