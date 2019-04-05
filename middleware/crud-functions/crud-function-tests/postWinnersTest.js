@@ -12,7 +12,7 @@ describe("postWinners", function() {
   });
 });
 
-function revertProdData(userHandles) {
+function revertWinData(userHandles) {
   const ref = db.collection("users");
   userHandles.map(async user => {
     const document = ref.doc(user);

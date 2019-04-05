@@ -10,7 +10,7 @@ describe('postLosers', function() {
   });
 });
 
-function revertProdData(userHandles) {
+function revertLossData(userHandles) {
   var ref = db.collection('users');
   const document = ref.doc(userHandles[0]);
   document
