@@ -31,10 +31,10 @@ function postWinners(userHandles) {
 
   const updated = Promise.all(promises)
     .then((_result) => {
-      return true;
+      return userHandles;
     })
     .catch((_error) => {
-      return false;
+      return [];
     });
   return updated;
 }
