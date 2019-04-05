@@ -4,21 +4,24 @@ const getUser = require("../getUser.js");
 const assert = require('chai').assert;
 
 describe("postWinners", function() {
-  it("should return true for adding user to db", async function() {
-    const response = await postWinners(["nash"]);
-    response.should.equal(true);
-    revertWinData(["nash"]);
+  it("should return updated users", async function() {
+    const winners = ["nash"];
+    const response = await postWinners(winners);
+    assert.equal(response, winners);
+    revertWinData(winners);
   });
 
   it("should increment wins, winStreak and set lossStreak to 0", async function() {
-    const beforeUser = await getUser("nash");
-    await postWinners(["nash"]);
-    const afterUser = await getUser("nash");
+    const winnerHandle = "nash";
+    const winners = [winnerHandle];
+    const beforeUser = await getUser(winnerHandle);
+    await postWinners(winners);
+    const afterUser = await getUser(winnerHandle);
 
     assert.equal(afterUser["wins"], beforeUser["wins"]+1);
     assert.equal(afterUser["winStreak"], beforeUser["winStreak"]+1);
     assert.equal(afterUser["lossStreak"], 0);
-    revertWinData(["nash"]);
+    revertWinData(winners);
   });
 });
 
