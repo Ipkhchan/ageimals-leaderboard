@@ -4,7 +4,7 @@ const should = require("chai").should();
 
 describe("getBottomOfLeaderboard", function() {
   it("should return a user object with valid attributes", async function() {
-    users = await getBottomOfLeaderboard(1);
+    let users = await getBottomOfLeaderboard(1);
     users.should.be.a("array");
     users.should.have.length(1);
     user = users[0];
@@ -18,13 +18,13 @@ describe("getBottomOfLeaderboard", function() {
   });
 
   it("should return 10 user objects by default", async function() {
-    users = await getBottomOfLeaderboard();
+    let users = await getBottomOfLeaderboard();
     users.should.be.a("array");
     users.should.have.length(10);
   });
 
   it("should return users sorted by most wins", async function() {
-    users = await getBottomOfLeaderboard();
+    let users = await getBottomOfLeaderboard();
     for (let i = 0; i < users.length - 1; i++) {
       assert.isAtLeast(
         users[i]["losses"],
