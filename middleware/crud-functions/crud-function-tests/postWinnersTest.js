@@ -12,14 +12,9 @@ describe("postWinners", function() {
   });
 
   it("should increment wins, winStreak and set lossStreak to 0", async function() {
-    const before = getUser("nash");
-    const beforeUser = await before;
-
-    const post = postWinners(["nash"]);
-    await post;
-
-    const after = getUser("nash");
-    const afterUser = await after;
+    const beforeUser = await getUser("nash");
+    await postWinners(["nash"]);
+    const afterUser = await getUser("nash");
 
     assert.equal(afterUser["wins"], beforeUser["wins"]+1);
     assert.equal(afterUser["winStreak"], beforeUser["winStreak"]+1);
