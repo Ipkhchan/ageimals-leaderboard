@@ -22,9 +22,10 @@ function postLosers(userHandles) {
         });
     } else {
       const fields = data['_fieldsProto'];
-      let updatedLosses = Number(fields['losses']['integerValue']) + 1;
-      let updatedLossStreak = Number(fields['lossStreak']['integerValue']) + 1;
-      let wins = Number(fields['wins']['integerValue']);
+      const updatedLosses = Number(fields['losses']['integerValue']) + 1;
+      const updatedLossStreak =
+        Number(fields['lossStreak']['integerValue']) + 1;
+      const wins = Number(fields['wins']['integerValue']);
       const score = calculateRankScore(wins, updatedLosses);
       document
         .update({
