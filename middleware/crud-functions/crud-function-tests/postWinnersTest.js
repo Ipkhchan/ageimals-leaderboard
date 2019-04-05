@@ -22,6 +22,11 @@ describe("postWinners", function() {
     assert.equal(afterUser["winStreak"], beforeUser["winStreak"]+1);
     assert.equal(afterUser["lossStreak"], 0);
     revertWinData(winners);
+
+    const revertedUser = await getUser("nash");
+
+    assert.equal(revertedUser["wins"], beforeUser["wins"]);
+    assert.equal(revertedUser["winStreak"], beforeUser["winStreak"]);
   });
 });
 
