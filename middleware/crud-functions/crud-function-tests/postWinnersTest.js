@@ -10,6 +10,22 @@ describe("postWinners", function() {
     response.should.equal(true);
     revertWinData(["nash"]);
   });
+
+  it("should increment wins, winStreak and set lossStreak to 0", async function() {
+    const before = getUser("nash");
+    const beforeUser = await before;
+
+    const post = postWinners(["nash"]);
+    await post;
+
+    const after = getUser("nash");
+    const afterUser = await after;
+
+    assert.equal(afterUser["wins"], beforeUser["wins"]+1);
+    assert.equal(afterUser["winStreak"], beforeUser["winStreak"]+1);
+    assert.equal(afterUser["lossStreak"], 0);
+    revertWinData(["nash"]);
+  });
 });
 
 function revertWinData(userHandles) {
