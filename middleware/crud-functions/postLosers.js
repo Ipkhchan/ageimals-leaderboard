@@ -31,6 +31,7 @@ function postLosers(userHandles) {
 
   const updated = Promise.all(promises)
     .then((_result) => {
+      cache.newLosers(userHandles);
       return userHandles;
     })
     .catch((_error) => {

@@ -15,7 +15,6 @@ describe("getTopOfLeaderboard", function() {
     user["winStreak"].should.be.a("number");
     user["lossStreak"].should.be.a("number");
     user["rankScore"].should.be.a("number");
-    user["rankScore"].should.be.a("number");
   });
 
   it("should return 10 user objects by default", async function() {

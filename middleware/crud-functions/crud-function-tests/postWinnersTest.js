@@ -15,7 +15,7 @@ describe("postWinners", function() {
     const winnerHandle = "nash";
     const winners = [winnerHandle];
     const beforeUser = await getUser(winnerHandle);
-    await postWinners(winners);
+    postWinners(winners);
     const afterUser = await getUser(winnerHandle);
 
     assert.equal(afterUser["wins"], beforeUser["wins"]+1);
