@@ -8,6 +8,22 @@ describe('postLosers', function() {
     revertLossData(['nash']);
     response.should.equal(true);
   });
+
+  it("should increment losses, winStreak and set lossStreak to 0", async function() {
+    const beforeUser = await getUser("nash");
+    await postWinners(["nash"]);
+    const afterUser = await getUser("nash");
+
+    assert.equal(afterUser["losses"], beforeUser["losses"]+1);
+    assert.equal(afterUser["lossStreak"], beforeUser["lossStreak"]+1);
+    assert.equal(afterUser["lossStreak"], 0);
+    revertWinData(["nash"]);
+
+    const revertedUser = await getUser("nash");
+
+    assert.equal(revertedUser["losses"], beforeUser["losses"]);
+    assert.equal(revertedUser["lossStreak"], beforeUser["lossStreak"]);
+  });
 });
 
 function revertLossData(userHandles) {

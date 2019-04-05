@@ -10,5 +10,6 @@ describe('getUser', function() {
     user["losses"].should.be.a("number");
     user["winStreak"].should.be.a("number");
     user["lossStreak"].should.be.a("number");
+    user["rankScore"].should.be.a("number");
   });
 });
