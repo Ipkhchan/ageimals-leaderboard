@@ -1,4 +1,4 @@
-const firebase = require("../firebase.js");
+const firebase = require("../../../firebase.js");
 const db = firebase.db;
 const admin = firebase.admin;
 const postWinners = require("../graphql/postWinners.js");

@@ -1,13 +1,12 @@
-const firebase = require("../firebase.js");
-const db = firebase.db;
+const {db} = require('../../firebase.js');
 
 async function getTopOfLeaderboard(numUsers = 10) {
   const users = db
-    .collection("users")
-    .orderBy("wins", "desc")
+    .collection('users')
+    .orderBy('wins', 'desc')
     .limit(numUsers);
   const snapshot = await users.get();
-  const topUsers = snapshot.docs.map(doc => doc.data());
+  const topUsers = snapshot.docs.map((doc) => doc.data());
 
   return topUsers;
 }

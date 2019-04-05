@@ -14,11 +14,8 @@
     "console.table": "^0.10.0",
     "firebase": "^5.9.2",
     "firebase-admin": "^7.2.0",
-    "graphql": "^14.2.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
-    "koa-graphql": "^0.8.0",
-    "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10"
