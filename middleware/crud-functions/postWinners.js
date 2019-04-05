@@ -2,8 +2,8 @@ const db = require('../../firebase.js');
 const calculateRankScore = require('../../utilities/calculations.js');
 
 function postWinners(userHandles) {
-  let ref = db.collection('users');
-  let promises = userHandles.map(async (user) => {
+  const ref = db.collection('users');
+  const promises = userHandles.map(async (user) => {
     const document = ref.doc(user);
     const data = await document.get();
     if (data['_createTime'] === undefined) {
@@ -29,14 +29,14 @@ function postWinners(userHandles) {
     }
   });
 
-  result = Promise.all(promises)
-    .then(result => {
+  const updated = Promise.all(promises)
+    .then((_result) => {
       return true;
     })
-    .catch(error => {
+    .catch((_error) => {
       return false;
     });
-  return result;
+  return updated;
 }
 
 module.exports = postWinners;
