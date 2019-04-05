@@ -5,7 +5,7 @@ const should = require('chai').should();
 describe('postLosers', function() {
   it('should return true for adding user to db', async function() {
     response = await postLosers(['nash']);
-    revertProdData(['nash']);
+    revertLossData(['nash']);
     response.should.equal(true);
   });
 });

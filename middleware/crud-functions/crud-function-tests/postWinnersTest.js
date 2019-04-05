@@ -8,7 +8,7 @@ describe("postWinners", function() {
   it("should return true for adding user to db", async function() {
     const response = await postWinners(["nash"]);
     response.should.equal(true);
-    revertProdData(["nash"]);
+    revertWinData(["nash"]);
   });
 });
 
