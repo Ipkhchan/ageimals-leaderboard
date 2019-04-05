@@ -1,4 +1,4 @@
-const {db, admin} = require('../../firebase.js');
+const db = require('../../firebase.js');
 
 function postWinners(userHandles) {
   var ref = db.collection('users');
@@ -12,6 +12,7 @@ function postWinners(userHandles) {
           losses: 0,
           winStreak: 1,
           lossStreak: 0,
+          scoreRank: calculateRankScore(1, 0),
         })
         .then(() => {
           console.log(user, ' successfully written!');
@@ -20,11 +21,17 @@ function postWinners(userHandles) {
           console.error('Error writing user: ', error);
         });
     } else {
+      const fields = data['_fieldsProto'];
+      let updatedWins = Number(fields['wins']['integerValue']) + 1;
+      let updatedWinStreak = Number(fields['winStreak']['integerValue']) + 1;
+      let losses = Number(fields['losses']['integerValue']);
+      const score = calculateRankScore(updatedWins, losses);
       document
         .update({
-          wins: admin.firestore.FieldValue.increment(1),
-          winStreak: admin.firestore.FieldValue.increment(1),
+          wins: updatedWins,
+          winStreak: updatedWinStreak,
           lossStreak: 0,
+          rankScore: score,
         })
         .then(() => {
           console.log(user, ' successfully updated!');
@@ -36,6 +43,11 @@ function postWinners(userHandles) {
   });
 
   return true;
+}
+
+function calculateRankScore(wins, losses) {
+  score = (wins + 100 * 0.2) / (wins + losses + 100);
+  return score;
 }
 
 module.exports = postWinners;

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:middleware/crud-functions/getBottomOfLeaderboard.js
 const {db} = require('../../firebase.js');
+=======
+const db = require("../firebase.js");
+>>>>>>> added score calculation:graphql/getBottomOfLeaderboard.js
 
 async function getBottomOfLeaderboard(numUsers = 10) {
   const users = db

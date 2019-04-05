@@ -1,4 +1,4 @@
-const {db} = require('../../firebase.js');
+const db = require('../../firebase.js');
 
 async function getTopLoseStreaks(numUsers = 10) {
   const users = db

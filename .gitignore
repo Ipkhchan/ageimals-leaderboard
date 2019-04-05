@@ -1,3 +1,4 @@
 node_modules
 serviceAccountCredentials.json
 *.log
+.DS_Store
