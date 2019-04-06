@@ -77,11 +77,17 @@ async function handlePost(ctx) {
     }
   });
 
-  winners = postWinners(winners);
-  losers = postLosers(losers);
+  winners = await postWinners(winners);
+  winners = winners.map((winner) => `<@${winner}> `);
+  losers = await postLosers(losers);
+
+  const hasWinnersMessage = `Congrats to ${winners.join(
+    ' ',
+  )}, the correct answer is *${correctAnswer}* old!`;
+  const noWinnersMessage = `Ageimal? More like dismal. All of you were wrong! The correct answer is *${correctAnswer}* old!`;
 
   ctx.status = 200;
-  ctx.body = '```<@UH1GHEGUS>```';
+  ctx.body = winners.length ? hasWinnersMessage : noWinnersMessage;
 }
 
 module.exports = handlePost;
