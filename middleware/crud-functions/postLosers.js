@@ -1,4 +1,5 @@
 const db = require('../../firebase.js');
+const calculateRankScore = require('../../utilities/calculations.js');
 
 function postLosers(userHandles) {
   const ref = db.collection('users');
@@ -37,11 +38,6 @@ function postLosers(userHandles) {
       return [];
     });
   return updated;
-}
-
-function calculateRankScore(wins, losses) {
-  score = (wins + 100 * 0.2) / (wins + losses + 100);
-  return score;
 }
 
 module.exports = postLosers;
