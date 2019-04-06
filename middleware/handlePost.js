@@ -2,7 +2,7 @@ const axios = require('axios');
 const {postWinners, postLosers} = require('./crud-functions/index.js');
 
 async function handlePost(ctx) {
-  const {user_id, text: correctAnswer} = ctx.request.body;
+  const {user_id, response_url, text: correctAnswer} = ctx.request.body;
 
   const adminIds = process.env.ADMIN_IDS.split(',');
   if (!adminIds.includes(user_id)) {
@@ -86,8 +86,13 @@ async function handlePost(ctx) {
   )}, the correct answer is *${correctAnswer}* old!`;
   const noWinnersMessage = `Ageimal? More like dismal. All of you were wrong! The correct answer is *${correctAnswer}* old!`;
 
+  const response = {
+    response_type: 'in_channel',
+    text: winners.length ? hasWinnersMessage : noWinnersMessage,
+  };
+
   ctx.status = 200;
-  ctx.body = winners.length ? hasWinnersMessage : noWinnersMessage;
+  ctx.body = response;
 }
 
 module.exports = handlePost;
