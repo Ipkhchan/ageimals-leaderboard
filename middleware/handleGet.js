@@ -6,17 +6,19 @@ const {
   getTopWinStreaks,
 } = require('./crud-functions/index.js');
 const {orderObjects} = require('../utilities/object-formatting.js');
-const orderedColumns = require('../constants');
+const {orderedColumns, commands} = require('../constants');
 
 async function handleGet(ctx) {
   const {text} = ctx.request.body;
 
-  let [category, numUsers] = text.split(' ');
-  numUsers = parseInt(numUsers);
+  const command = commands.find((command) => text.includes(command)) || null;
+  const numUsers = Number(text.match(/\d+/));
+  const responseType = text.includes('in_channel') || 'ephemeral';
+
   let users = [];
   let tableTitle = '';
 
-  switch (category) {
+  switch (command) {
     case 'self': {
       //get Single User
       break;
@@ -51,6 +53,7 @@ async function handleGet(ctx) {
 
   const table = `\`\`\`${cTable.getTable(users)}\`\`\``;
   const body = {
+    response_type: responseType,
     attachments: [{title: `Ageimals Leaderboard - ${tableTitle}`, text: table}],
   };
 
