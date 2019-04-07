@@ -41,6 +41,13 @@ async function handlePost(ctx) {
 
   while (!foundPoll) {
     var messages = await getMessages(latestMsgTimestamp, numMessages);
+
+    if (!messages.length) {
+      ctx.status = 200;
+      ctx.body = 'Could not find any poll in the specified channel';
+      return;
+    }
+
     var pollMessage = messages.find((message) => {
       return message.username === 'Polly';
     });

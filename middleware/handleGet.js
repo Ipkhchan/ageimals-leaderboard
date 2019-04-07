@@ -10,15 +10,22 @@ const {orderedColumns, commands} = require('../constants');
 
 async function handleGet(ctx) {
   const {text} = ctx.request.body;
+  let [category, numUsers] = text.split(' ');
+  numUsers = Number(numUsers);
 
-  const command = commands.find((command) => text.includes(command)) || null;
-  const numUsers = Number(text.match(/\d+/));
+  if (!commands.includes(category) && text.length) {
+    ctx.status = 200;
+    ctx.body =
+      'The entered text does not match any available command. Check the options or your spelling.';
+    return;
+  }
+
   const responseType = text.includes('in_channel') || 'ephemeral';
 
   let users = [];
   let tableTitle = '';
 
-  switch (command) {
+  switch (category) {
     case 'self': {
       //get Single User
       break;
