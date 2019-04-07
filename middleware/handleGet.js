@@ -6,13 +6,22 @@ const {
   getTopWinStreaks,
 } = require('./crud-functions/index.js');
 const {orderObjects} = require('../utilities/object-formatting.js');
-const orderedColumns = require('../constants');
+const {orderedColumns, commands} = require('../constants');
 
 async function handleGet(ctx) {
   const {text} = ctx.request.body;
-
   let [category, numUsers] = text.split(' ');
-  numUsers = parseInt(numUsers);
+  numUsers = Number(numUsers);
+
+  if (!commands.includes(category) && text.length) {
+    ctx.status = 200;
+    ctx.body =
+      'The entered text does not match any available command. Check the options or your spelling.';
+    return;
+  }
+
+  const responseType = text.includes('in_channel') || 'ephemeral';
+
   let users = [];
   let tableTitle = '';
 
@@ -51,6 +60,7 @@ async function handleGet(ctx) {
 
   const table = `\`\`\`${cTable.getTable(users)}\`\`\``;
   const body = {
+    response_type: responseType,
     attachments: [{title: `Ageimals Leaderboard - ${tableTitle}`, text: table}],
   };
 
