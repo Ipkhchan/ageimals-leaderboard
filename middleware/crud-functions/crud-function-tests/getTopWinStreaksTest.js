@@ -4,7 +4,7 @@ const should = require("chai").should();
 
 describe("getTopWinStreaks", function() {
   it("should return a user object with valid attributes", async function() {
-    users = await getTopWinStreaks(1);
+    let users = await getTopWinStreaks(1);
     users.should.be.a("array");
     users.should.have.length(1);
     user = users[0];
@@ -14,16 +14,17 @@ describe("getTopWinStreaks", function() {
     user["losses"].should.be.a("number");
     user["winStreak"].should.be.a("number");
     user["lossStreak"].should.be.a("number");
+    user["rankScore"].should.be.a("number");
   });
 
   it("should return 10 user objects by default", async function() {
-    users = await getTopWinStreaks();
+    let users = await getTopWinStreaks();
     users.should.be.a("array");
     users.should.have.length(10);
   });
 
   it("should return users sorted by highest winStreaks", async function() {
-    users = await getTopWinStreaks();
+    let users = await getTopWinStreaks();
     for (let i = 0; i < users.length - 1; i++) {
       assert.isAtLeast(
         users[i]["winStreak"],

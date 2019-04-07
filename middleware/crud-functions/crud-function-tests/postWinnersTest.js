@@ -15,13 +15,18 @@ describe("postWinners", function() {
     const winnerHandle = "nash";
     const winners = [winnerHandle];
     const beforeUser = await getUser(winnerHandle);
-    await postWinners(winners);
+    postWinners(winners);
     const afterUser = await getUser(winnerHandle);
 
     assert.equal(afterUser["wins"], beforeUser["wins"]+1);
     assert.equal(afterUser["winStreak"], beforeUser["winStreak"]+1);
     assert.equal(afterUser["lossStreak"], 0);
     revertWinData(winners);
+
+    const revertedUser = await getUser(winnerHandle);
+
+    assert.equal(revertedUser["wins"], beforeUser["wins"]);
+    assert.equal(revertedUser["winStreak"], beforeUser["winStreak"]);
   });
 });
 

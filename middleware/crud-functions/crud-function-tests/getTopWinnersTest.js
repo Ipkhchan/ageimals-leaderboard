@@ -1,10 +1,10 @@
-const getBottomOfLeaderboard = require("../getBottomOfLeaderboard.js");
+const getTopWinners = require("../getTopWinners.js");
 const assert = require("chai").assert;
 const should = require("chai").should();
 
-describe("getBottomOfLeaderboard", function() {
+describe("getTopWinners", function() {
   it("should return a user object with valid attributes", async function() {
-    let users = await getBottomOfLeaderboard(1);
+    let users = await getTopWinners(1);
     users.should.be.a("array");
     users.should.have.length(1);
     user = users[0];
@@ -14,22 +14,21 @@ describe("getBottomOfLeaderboard", function() {
     user["losses"].should.be.a("number");
     user["winStreak"].should.be.a("number");
     user["lossStreak"].should.be.a("number");
-    user["rankScore"].should.be.a("number");
   });
 
   it("should return 10 user objects by default", async function() {
-    let users = await getBottomOfLeaderboard();
+    let users = await getTopWinners();
     users.should.be.a("array");
     users.should.have.length(10);
   });
 
   it("should return users sorted by most wins", async function() {
-    let users = await getBottomOfLeaderboard();
+    let users = await getTopWinners();
     for (let i = 0; i < users.length - 1; i++) {
       assert.isAtLeast(
-        users[i]["losses"],
-        users[i + 1]["losses"],
-        users[i] + " has more or equal losses than " + users[i + 1]
+        users[i]["wins"],
+        users[i + 1]["wins"],
+        users[i] + " has greater or equal wins than " + users[i + 1]
       );
     }
   });

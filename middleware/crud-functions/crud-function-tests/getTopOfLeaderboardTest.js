@@ -4,7 +4,7 @@ const should = require("chai").should();
 
 describe("getTopOfLeaderboard", function() {
   it("should return a user object with valid attributes", async function() {
-    users = await getTopOfLeaderboard(1);
+    let users = await getTopOfLeaderboard(1);
     users.should.be.a("array");
     users.should.have.length(1);
     user = users[0];
@@ -14,20 +14,21 @@ describe("getTopOfLeaderboard", function() {
     user["losses"].should.be.a("number");
     user["winStreak"].should.be.a("number");
     user["lossStreak"].should.be.a("number");
+    user["rankScore"].should.be.a("number");
   });
 
   it("should return 10 user objects by default", async function() {
-    users = await getTopOfLeaderboard();
+    let users = await getTopOfLeaderboard();
     users.should.be.a("array");
     users.should.have.length(10);
   });
 
   it("should return users sorted by most wins", async function() {
-    users = await getTopOfLeaderboard();
+    let users = await getTopOfLeaderboard();
     for (let i = 0; i < users.length - 1; i++) {
       assert.isAtLeast(
-        users[i]["wins"],
-        users[i + 1]["wins"],
+        users[i]["rankScore"],
+        users[i + 1]["rankScore"],
         users[i] + " has greater or equal wins than " + users[i + 1]
       );
     }
