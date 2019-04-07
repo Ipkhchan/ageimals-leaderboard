@@ -1,5 +1,6 @@
 const db = require('../../firebase.js');
 const calculateRankScore = require('../../utilities/calculations.js');
+const {cache} = require('../../cache.js');
 
 function postWinners(userHandles) {
   const ref = db.collection('users');
@@ -31,6 +32,7 @@ function postWinners(userHandles) {
 
   const updated = Promise.all(promises)
     .then((_result) => {
+      cache.newWinners(userHandles);
       return userHandles;
     })
     .catch((_error) => {

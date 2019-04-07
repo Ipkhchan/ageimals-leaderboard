@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser');
 const dotenv = require('dotenv');
 
 const {handleGet, handlePost} = require('./middleware/index.js');
+const {cache} = require('./cache.js');
 
 const app = new Koa();
 var router = new Router();
